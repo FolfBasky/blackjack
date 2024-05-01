@@ -185,7 +185,12 @@ async def get_top10(message: Message):
     g = get_top_players()
     for i,x in enumerate(g):
         username, count_games, kd = x
-        await message.answer(f'{i+1}. {username} - {count_games} игр (КД = {kd})')
+        if str(count_games)=='11': games = str(count_games) +' игр'
+        elif str(count_games).endswith('1'): games = str(count_games) +' игру'
+        elif count_games%10 >= 2 and count_games%10 < 5: games = str(count_games) +' игры'
+        else: games = str(count_games) +' игр'
+
+        await message.answer(f'{i+1}. {username} - {games} (КД = {kd})')
 
 async def develop(message: Message):
     txt = '''Hi! I am a Russian developer and I have been writing in Python for almost 2 years. I have completed many courses and am writing my own projects. (They are shown in the profile) In parallel, I solve logical problems on sites such as codewars.com , codingame.com and others. I have worked with SQL, API, Flask, aiogram, http, regular strings, captchas, AI, images, sounds videos in python. I like to write bots for automating work with websites. I can make simple websites.'''
